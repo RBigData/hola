@@ -114,9 +114,9 @@ extern "C" SEXP hola_read(SEXP vn, SEXP io_Robj, SEXP r_Robj)
     // get array dims
     const auto dims = blocks_info[0].Count;
     
-    long unsigned int n = 1;
+    R_xlen_t n = 1.0;
     for (unsigned int i=0; i<dims.size(); i++)
-      n *= dims[i];
+      n *= (R_xlen_t) dims[i];
     PROTECT(ret = allocVector(INTSXP, n));
     
     PROTECT(dim_robj = allocVector(REALSXP, dims.size()));
