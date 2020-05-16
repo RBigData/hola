@@ -588,7 +588,7 @@ ADIOS_LDFLAGS
 ADIOS_CPPFLAGS
 SPMD_LDFLAGS
 SPMD_CPPFLAGS
-XXX
+CUSTOM_ADIOS2_CONFIG
 ADIOS2_CONFIG
 target_alias
 host_alias
@@ -632,7 +632,7 @@ SHELL'
 ac_subst_files=''
 ac_user_opts='
 enable_option_checking
-with_adios_home
+with_adios2_home
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1700,9 +1700,9 @@ SPMD_CPPFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('PKG_CPPFLAGS',
 SPMD_LDFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('PKG_LIBS','"${R_ARCH}"')"`
 
 
-# Check whether --with-adios-home was given.
-if test "${with_adios_home+set}" = set; then :
-  withval=$with_adios_home; ADIOS_PATH=$withval
+# Check whether --with-adios2-home was given.
+if test "${with_adios2_home+set}" = set; then :
+  withval=$with_adios2_home; ADIOS_PATH=$withval
 
 fi
 
@@ -1757,11 +1757,11 @@ else
 set dummy adios2-config; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_prog_XXX+:} false; then :
+if ${ac_cv_prog_CUSTOM_ADIOS2_CONFIG+:} false; then :
   $as_echo_n "(cached) " >&6
 else
-  if test -n "$XXX"; then
-  ac_cv_prog_XXX="$XXX" # Let the user override the test.
+  if test -n "$CUSTOM_ADIOS2_CONFIG"; then
+  ac_cv_prog_CUSTOM_ADIOS2_CONFIG="$CUSTOM_ADIOS2_CONFIG" # Let the user override the test.
 else
 as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
 for as_dir in ${ADIOS_PATH}/bin
@@ -1770,7 +1770,7 @@ do
   test -z "$as_dir" && as_dir=.
     for ac_exec_ext in '' $ac_executable_extensions; do
   if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_prog_XXX="yes"
+    ac_cv_prog_CUSTOM_ADIOS2_CONFIG="yes"
     $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
     break 2
   fi
@@ -1778,13 +1778,13 @@ done
   done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_prog_XXX" && ac_cv_prog_XXX="no"
+  test -z "$ac_cv_prog_CUSTOM_ADIOS2_CONFIG" && ac_cv_prog_CUSTOM_ADIOS2_CONFIG="no"
 fi
 fi
-XXX=$ac_cv_prog_XXX
-if test -n "$XXX"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $XXX" >&5
-$as_echo "$XXX" >&6; }
+CUSTOM_ADIOS2_CONFIG=$ac_cv_prog_CUSTOM_ADIOS2_CONFIG
+if test -n "$CUSTOM_ADIOS2_CONFIG"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $CUSTOM_ADIOS2_CONFIG" >&5
+$as_echo "$CUSTOM_ADIOS2_CONFIG" >&6; }
 else
   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
@@ -1792,7 +1792,7 @@ fi
 
 
 
-  if test x"${XXX}" == x"yes"; then
+  if test x"${CUSTOM_ADIOS2_CONFIG}" == x"yes"; then
     ADIOS_CPPFLAGS=`${ADIOS_PATH}/bin/adios2-config --cxx-flags`
     ADIOS_LDFLAGS=`${ADIOS_PATH}/bin/adios2-config --cxx-libs`
   else

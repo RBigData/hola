@@ -14,7 +14,7 @@ R_SCMD="${R_HOME}/bin/Rscript -e"
 SPMD_CPPFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('PKG_CPPFLAGS','"${R_ARCH}"')"`
 SPMD_LDFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('PKG_LIBS','"${R_ARCH}"')"`
 
-AC_ARG_WITH([adios-home],
+AC_ARG_WITH([adios2-home],
   AC_HELP_STRING(
     [--with-adios2-home=ADIOS_PATH],
     [location of ADIOS2 installation]
