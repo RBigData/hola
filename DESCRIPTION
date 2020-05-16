@@ -1,0 +1,16 @@
+Package: hola
+Type: Package
+Title: Helpful Operating Link to Adios.
+Version: 0.1-0
+Description: An interface to the 'ADIOS2' library.
+License: BSL-1.0
+Depends:
+    R (>= 3.5.0),
+    pbdMPI (>= 0.3-0)
+SystemRequirements: C++14
+ByteCompile: yes
+Authors@R: c(person("Drew", "Schmidt", role=c("aut", "cre"), email="wrathematics@gmail.com"))
+Maintainer: Drew Schmidt <wrathematics@gmail.com>
+URL: https://github.com/RBigData/ngram
+BugReports: https://github.com/RBigData/hola/issues
+RoxygenNote: 7.1.0
