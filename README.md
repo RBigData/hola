@@ -6,7 +6,7 @@
 * **Bug reports**: https://github.com/RBigData/hola/issues
 
 
-hola is the Helpful Operating Link to Adios, an interface to the [ADIOS2](https://csmd.ornl.gov/software/adios2) library.
+**hola** is the Helpful Operating Link to ADIOS, an interface to the [ADIOS2](https://csmd.ornl.gov/software/adios2) library.
 
 
 
