@@ -1,23 +1,40 @@
+#' adios_open
+#' 
+#' Open a file.
+#' 
+#' @param filename
+#' TODO
+#' @param engine
+#' Either left blank/missing, or one of "bpfile", "dataman", "hdf5",
+#' "insitumpi", or "sst", corresponding to the input. If missing, then we try
+#' to intuit the engine based on the extension in \code{filename}.
+#' 
+#' @return An object of class "adios_file".
+#' 
 #' @useDynLib hola hola_open
 #' @export
-adios_open = function(filename, engine_type)
+adios_open = function(filename, engine)
 {
-  if (missing(engine_type))
+  if (missing(engine))
   {
     extension = tolower(tail(strsplit(basename(filename), split="\\.")[[1]], 1))
     if (extension == "hdf5" || extension == "h5")
-      engine_type = "hdf5"
+      engine = "hdf5"
     else if (extension == "bp")
-      engine_type = "bpfile"
+      engine = "bpfile"
+    else
+      stop("unable to determine engine type; please manually specify it")
   }
   else
-    engine_type = match.arg(engine_type, c("bpfile", "dataman", "hdf5", "insitumpi", "sst"))
+    engine = match.arg(engine, c("bpfile", "dataman", "hdf5", "insitumpi", "sst"))
   
-  af = .Call(hola_open, filename, engine_type)
+  af = .Call(hola_open, filename, engine)
   class(af) = "adios_file"
   attr(af, "filename") = filename
   af
 }
+
+
 
 #' @export
 print.adios_file = function(x, ...)
