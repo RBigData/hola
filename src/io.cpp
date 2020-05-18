@@ -71,13 +71,11 @@ extern "C" SEXP hola_close(SEXP r_Robj)
 
 
 template <typename T>
-static inline void check_variable(adios2::Variable<T> &variable, std::string &name, size_t step)
+static inline void check_variable(adios2::Variable<T> &variable,
+  const std::string &name, const size_t step)
 {
   if (!variable)
-  {
-    std::string s = "variable " + name + " not found in step " + std::to_string(step) + "\n";
-    error("%s", s.c_str());
-  }
+    error("variable \"%s\" not found in step %d\n", name.c_str(), step);
 }
 
 template <typename T>
