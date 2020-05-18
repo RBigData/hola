@@ -1,8 +1,7 @@
-#include "utils.hpp"
+#include "hola.hpp"
+#include "mpi_utils.h"
 
 #include <adios2.h>
-
-#include <iostream>
 
 
 extern "C" SEXP hola_open(SEXP f, SEXP engine_type)//, SEXP mode, SEXP comm_ptr)
