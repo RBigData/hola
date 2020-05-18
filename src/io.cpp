@@ -5,7 +5,7 @@
 #include <iostream>
 
 
-extern "C" SEXP hola_open(SEXP f)//, SEXP mode, SEXP comm_ptr)
+extern "C" SEXP hola_open(SEXP f, SEXP engine_type)//, SEXP mode, SEXP comm_ptr)
 {
   SEXP ret;
   SEXP ad_Robj, io_Robj, r_Robj;
@@ -17,8 +17,8 @@ extern "C" SEXP hola_open(SEXP f)//, SEXP mode, SEXP comm_ptr)
   
   adios2::ADIOS *ad = new adios2::ADIOS;
   adios2::IO *io = new adios2::IO;
-  *io = ad->DeclareIO("ReadHDF5");
-  io->SetEngine("HDF5");
+  *io = ad->DeclareIO("R_ADIOS_READER");
+  io->SetEngine(CHARPT(engine_type, 0));
   
   adios2::Engine *r = new adios2::Engine;
   *r = io->Open(CHARPT(f, 0), adios2::Mode::Read);
