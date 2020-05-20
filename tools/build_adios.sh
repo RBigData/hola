@@ -1,0 +1,28 @@
+#!/bin/sh
+
+ADIOS2_SRC=${HOME}/sw/libs/ADIOS2
+
+cd ${ADIOS2_SRC}
+
+mkdir -p install
+mkdir -p build
+cd build
+
+cmake \
+-DCMAKE_INSTALL_PREFIX=${ADIOS2_SRC}/install \
+-DCMAKE_CXX_COMPILER=g++ \
+-DCMAKE_C_COMPILER=gcc \
+-DCMAKE_Fortran_COMPILER=gfortran \
+-DBUILD_SHARED_LIBS=ON \
+-DADIOS2_USE_MPI=ON \
+-DADIOS2_USE_Fortran=OFF \
+-DADIOS2_USE_Python=OFF \
+-DADIOS2_USE_SST=ON \
+-DADIOS2_BUILD_EXAMPLES_EXPERIMENTAL=OFF \
+-DCMAKE_BUILD_TYPE=Release \
+-DADIOS2_BUILD_TESTING=OFF \
+-DADIOS2_USE_DataMan=OFF \
+-DADIOS2_USE_HDF5=ON \
+..
+
+make && make install
