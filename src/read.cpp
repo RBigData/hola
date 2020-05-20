@@ -84,7 +84,7 @@ extern "C" SEXP hola_read(SEXP vn, SEXP io_Robj, SEXP r_Robj)
     UNPROTECT(2);
   }
   else
-    error("variable has unsupported type");
+    error("variable has unsupported type \"%s\"\n", type.c_str());
   
   r->EndStep();
   
