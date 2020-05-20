@@ -1796,7 +1796,7 @@ fi
     ADIOS_CPPFLAGS=`${ADIOS_PATH}/bin/adios2-config --cxx-flags`
     ADIOS_LDFLAGS=`${ADIOS_PATH}/bin/adios2-config --cxx-libs`
   else
-    as_fn_error $? "FUCK YOU" "$LINENO" 5
+    as_fn_error $? "could not find adios2-config either in \$PATH or the specified adios2-home" "$LINENO" 5
   fi
 fi
 

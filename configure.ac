@@ -37,7 +37,7 @@ else
     ADIOS_CPPFLAGS=`${ADIOS_PATH}/bin/adios2-config --cxx-flags`
     ADIOS_LDFLAGS=`${ADIOS_PATH}/bin/adios2-config --cxx-libs`
   else
-    AC_MSG_ERROR([FUCK YOU])
+    AC_MSG_ERROR([could not find adios2-config either in \$PATH or the specified adios2-home])
   fi
 fi
 
