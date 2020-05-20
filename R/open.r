@@ -17,7 +17,7 @@ adios_open = function(filename, engine)
 {
   if (missing(engine))
   {
-    extension = tolower(tail(strsplit(basename(filename), split="\\.")[[1]], 1))
+    extension = tolower(last_elt(strsplit(basename(filename), split="\\.")[[1]]))
     if (extension == "hdf5" || extension == "h5")
       engine = "hdf5"
     else if (extension == "bp")

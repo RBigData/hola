@@ -2,6 +2,9 @@
 #' 
 #' An interface to the ADIOS2 library.
 #' 
+#' @importFrom pbdMPI get.mpi.comm.ptr
+#' @importFrom float float32
+#' 
 #' @name hola-package
 #' @docType package
 #' @author Drew Schmidt \email{wrathematics AT gmail.com}

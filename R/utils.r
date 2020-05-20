@@ -5,3 +5,10 @@ check_is_adios_file = function(af)
   
   invisible(TRUE)
 }
+
+
+
+last_elt = function(x)
+{
+  x[length(x)]
+}
