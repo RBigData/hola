@@ -36,7 +36,8 @@ static inline SEXP read_slice(const std::string &varname, const size_t step,
   
   PROTECT(dim_robj = allocVector(REALSXP, dims.size()));
   for (unsigned int i=0; i<dims.size(); i++)
-    REAL(dim_robj)[i] = (double)dims[dims.size() - 1 - i];
+    REAL(dim_robj)[i] = (double)dims[i];
+    // REAL(dim_robj)[i] = (double)dims[dims.size() - 1 - i];
   const char *dim_attr = CHAR(mkChar("dim"));
   setAttrib(ret, install(dim_attr), dim_robj);
   
@@ -64,8 +65,6 @@ extern "C" SEXP hola_read(SEXP vn, SEXP io_Robj, SEXP r_Robj)
   adios2::Engine *r = (adios2::Engine *) getRptr(r_Robj);
   std::string varname = CHARPT(vn, 0);
   
-  auto read_status = r->BeginStep(adios2::StepMode::Read, 10.0f);
-  
   size_t step = r->CurrentStep();
   
   auto type = io->VariableType(varname);
@@ -74,7 +73,16 @@ extern "C" SEXP hola_read(SEXP vn, SEXP io_Robj, SEXP r_Robj)
   else if (type == "double")
     PROTECT(ret = read_slice<double>(varname, step, io, r, REALSXP));
   else if (type == "float")
-    PROTECT(ret = read_slice<float>(varname, step, io, r, INTSXP));
+  {
+    SEXP ret_data;
+    PROTECT(ret_data = read_slice<float>(varname, step, io, r, INTSXP));
+    
+    SEXP ret_s4_class;
+    PROTECT(ret_s4_class = MAKE_CLASS("float32"));
+    PROTECT(ret = NEW_OBJECT(ret_s4_class));
+    SET_SLOT(ret, install("Data"), ret_data);
+    UNPROTECT(2);
+  }
   else
     error("variable has unsupported type");
   
