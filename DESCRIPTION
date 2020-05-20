@@ -1,6 +1,6 @@
 Package: hola
 Type: Package
-Title: Helpful Operating Link to Adios.
+Title: Helpful Operating Link to ADIOS
 Version: 0.1-0
 Description: An interface to the 'ADIOS2' library.
 License: BSL-1.0
