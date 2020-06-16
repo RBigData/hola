@@ -4,15 +4,10 @@
 #include <adios2.h>
 
 
-extern "C" SEXP hola_open(SEXP f, SEXP engine_type)//, SEXP mode, SEXP comm_ptr)
+extern "C" SEXP hola_open(SEXP f, SEXP engine_type)
 {
   SEXP ret;
   SEXP ad_Robj, io_Robj, r_Robj;
-  // MPI_Comm comm = get_mpi_comm_from_Robj(comm_ptr);
-  
-  // int rank, size;
-  // MPI_Comm_rank(comm, &rank);
-  // MPI_Comm_size(comm, &size);
   
   adios2::ADIOS *ad = new adios2::ADIOS;
   adios2::IO *io = new adios2::IO;
