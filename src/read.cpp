@@ -58,6 +58,24 @@ extern "C" SEXP hola_read(SEXP vn, SEXP io_Robj, SEXP r_Robj)
   adios2::Engine *r = (adios2::Engine *) getRptr(r_Robj);
   std::string varname = CHARPT(vn, 0);
   
+  
+  float timeout = 10.0f;
+  adios2::StepStatus read_status;
+  while (true)
+  {
+    read_status = r->BeginStep(adios2::StepMode::Read, timeout);
+    if (read_status == adios2::StepStatus::NotReady)
+    {
+      Rprintf("Stream not ready yet. Waiting...\n");
+      continue;
+    }
+    else
+      break;
+  }
+  
+  if (read_status != adios2::StepStatus::OK)
+    return R_NilValue;
+  
   size_t step = r->CurrentStep();
   
   auto type = io->VariableType(varname);
