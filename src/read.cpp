@@ -61,7 +61,9 @@ extern "C" SEXP hola_read(SEXP vn, SEXP io_Robj, SEXP r_Robj)
   size_t step = r->CurrentStep();
   
   auto type = io->VariableType(varname);
-  if (type == "int32_t")
+  if (type == "")
+    error("variable \"%s\" not found in step %d\n", varname.c_str(), step);
+  else if (type == "int32_t")
     PROTECT(ret = read_slice<int>(varname, step, io, r, INTSXP));
   else if (type == "double")
     PROTECT(ret = read_slice<double>(varname, step, io, r, REALSXP));
