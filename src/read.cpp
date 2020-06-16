@@ -41,14 +41,7 @@ static inline SEXP read_slice(const std::string &varname, const size_t step,
   const char *dim_attr = CHAR(mkChar("dim"));
   setAttrib(ret, install(dim_attr), dim_robj);
   
-  // read the data
-  // for (auto &info : blocks_info)
-  // {
-    auto info = blocks_info[0];
-    variable.SetBlockSelection(info.BlockID);
-    r->Get<T>(variable, (T*)DATAPTR(ret), adios2::Mode::Deferred);
-  // }
-  
+  r->Get<T>(variable, (T*)DATAPTR(ret), adios2::Mode::Deferred);
   r->PerformGets();
   
   UNPROTECT(2);
