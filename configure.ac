@@ -11,8 +11,8 @@ fi
 
 R_SCMD="${R_HOME}/bin/Rscript -e"
 
-SPMD_CPPFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('PKG_CPPFLAGS','"${R_ARCH}"')"`
-SPMD_LDFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('PKG_LIBS','"${R_ARCH}"')"`
+# SPMD_CPPFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('PKG_CPPFLAGS','"${R_ARCH}"')"`
+# SPMD_LDFLAGS=`${R_SCMD} "source('./R/conf/get_conf.r');get.conf('PKG_LIBS','"${R_ARCH}"')"`
 
 AC_ARG_WITH([adios2-home],
   AC_HELP_STRING(
@@ -45,9 +45,9 @@ fi
 echo " "
 echo "******************** Results of hola package configure *******************"
 echo " "
-echo "* MPI report:"
-echo "    >> SPMD_CPPFLAGS = ${SPMD_CPPFLAGS}"
-echo "    >> SPMD_LDFLAGS = ${SPMD_LDFLAGS}"
+# echo "* MPI report:"
+# echo "    >> SPMD_CPPFLAGS = ${SPMD_CPPFLAGS}"
+# echo "    >> SPMD_LDFLAGS = ${SPMD_LDFLAGS}"
 echo "* ADIOS2 report:"
 echo "    >> ADIOS_CPPFLAGS = ${ADIOS_CPPFLAGS}"
 echo "    >> ADIOS_LDFLAGS = ${ADIOS_LDFLAGS}"
