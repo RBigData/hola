@@ -1748,6 +1748,7 @@ fi
 if test x"${ADIOS2_CONFIG}" == x"yes"; then
   ADIOS_CPPFLAGS=`adios2-config --cxx-flags`
   ADIOS_LDFLAGS=`adios2-config --cxx-libs`
+  ADIOS_VERSION=`adios2-config -v | head -n 1 | sed -e 's/ADIOS //'`
 else
   if test -z "${ADIOS_PATH}"; then
     as_fn_error $? "ERROR: could not determine ADIOS_PATH; please set --with-adios2-home" "$LINENO" 5
@@ -1795,10 +1796,12 @@ fi
   if test x"${CUSTOM_ADIOS2_CONFIG}" == x"yes"; then
     ADIOS_CPPFLAGS=`${ADIOS_PATH}/bin/adios2-config --cxx-flags`
     ADIOS_LDFLAGS=`${ADIOS_PATH}/bin/adios2-config --cxx-libs`
+    ADIOS_VERSION=`${ADIOS_PATH}/bin/adios2-config -v | head -n 1 | sed -e 's/ADIOS //'`
   else
     as_fn_error $? "could not find adios2-config either in \$PATH or the specified adios2-home" "$LINENO" 5
   fi
 fi
+
 
 
 echo " "
@@ -1808,6 +1811,7 @@ echo " "
 # echo "    >> SPMD_CPPFLAGS = ${SPMD_CPPFLAGS}"
 # echo "    >> SPMD_LDFLAGS = ${SPMD_LDFLAGS}"
 echo "* ADIOS2 report:"
+echo "    >> ADIOS_VERSION = ${ADIOS_VERSION}"
 echo "    >> ADIOS_CPPFLAGS = ${ADIOS_CPPFLAGS}"
 echo "    >> ADIOS_LDFLAGS = ${ADIOS_LDFLAGS}"
 echo " "
