@@ -48,7 +48,7 @@ adios_file_R6 = R6::R6Class("adios_file_R6",
     #' the case data is being streamed.
     advance = function(timeout=10)
     {
-      adios_advance(af, timeout=10)
+      adios_advance(private$file, timeout=timeout)
     },
     
     #' @details Reads the array of a variable into R memory.

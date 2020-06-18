@@ -14,5 +14,5 @@
 adios_advance = function(af, timeout=10)
 {
   check_is_adios_file(af)
-  .Call(hola_advance, af[[3]])
+  .Call(hola_advance, af[[3]], as.double(timeout))
 }
