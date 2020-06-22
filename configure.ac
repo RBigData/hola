@@ -24,8 +24,8 @@ AC_ARG_WITH([adios2-home],
 
 AC_CHECK_PROG([ADIOS2_CONFIG], [adios2-config], yes, [no])
 if test x"${ADIOS2_CONFIG}" == x"yes"; then
-  ADIOS_CPPFLAGS=`adios2-config --cxx-flags`
-  ADIOS_LDFLAGS=`adios2-config --cxx-libs`
+  ADIOS_CPPFLAGS=`adios2-config --cxx-flags -s`
+  ADIOS_LDFLAGS=`adios2-config --cxx-libs -s`
   ADIOS_VERSION=`adios2-config -v | head -n 1 | sed -e 's/ADIOS //'`
 else
   if test -z "${ADIOS_PATH}"; then
@@ -35,8 +35,8 @@ else
   AC_CHECK_PROG([CUSTOM_ADIOS2_CONFIG], [adios2-config], yes, [no], [${ADIOS_PATH}/bin])
   
   if test x"${CUSTOM_ADIOS2_CONFIG}" == x"yes"; then
-    ADIOS_CPPFLAGS=`${ADIOS_PATH}/bin/adios2-config --cxx-flags`
-    ADIOS_LDFLAGS=`${ADIOS_PATH}/bin/adios2-config --cxx-libs`
+    ADIOS_CPPFLAGS=`${ADIOS_PATH}/bin/adios2-config --cxx-flags -s`
+    ADIOS_LDFLAGS=`${ADIOS_PATH}/bin/adios2-config --cxx-libs -s`
     ADIOS_VERSION=`${ADIOS_PATH}/bin/adios2-config -v | head -n 1 | sed -e 's/ADIOS //'`
   else
     AC_MSG_ERROR([could not find adios2-config either in \$PATH or the specified adios2-home])
