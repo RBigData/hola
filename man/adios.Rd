@@ -17,10 +17,11 @@ R6 classes and methods for ADIOS2 file operations.
 \dontrun{
 suppressMessages(library(hola))
 
-f = adios$file("/path/to/my/dataset")
-myvar_step_0 = f$read("my_variable")
+ad = adios()
+ad$open("/path/to/my/dataset")
+myvar_step_0 = ad$read("my_variable")
 f$advance()
-myvar_step_2 = f$read("my_variable")
+myvar_step_2 = ad$read("my_variable")
 }
 
 }
@@ -29,6 +30,7 @@ myvar_step_2 = f$read("my_variable")
 \itemize{
 \item \href{#method-new}{\code{adios_R6$new()}}
 \item \href{#method-open}{\code{adios_R6$open()}}
+\item \href{#method-available_variables}{\code{adios_R6$available_variables()}}
 \item \href{#method-close}{\code{adios_R6$close()}}
 \item \href{#method-print}{\code{adios_R6$print()}}
 \item \href{#method-advance}{\code{adios_R6$advance()}}
@@ -81,6 +83,19 @@ config file.}
 }
 \subsection{Details}{
 Open the file.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-available_variables"></a>}}
+\if{latex}{\out{\hypertarget{method-available_variables}{}}}
+\subsection{Method \code{available_variables()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{adios_R6$available_variables()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+List available variables in a file.
 }
 
 }

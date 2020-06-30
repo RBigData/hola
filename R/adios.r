@@ -6,10 +6,11 @@
 #' \dontrun{
 #' suppressMessages(library(hola))
 #' 
-#' f = adios$file("/path/to/my/dataset")
-#' myvar_step_0 = f$read("my_variable")
+#' ad = adios()
+#' ad$open("/path/to/my/dataset")
+#' myvar_step_0 = ad$read("my_variable")
 #' f$advance()
-#' myvar_step_2 = f$read("my_variable")
+#' myvar_step_2 = ad$read("my_variable")
 #' }
 #' 
 #' @rdname adios
@@ -27,7 +28,8 @@ adios_R6 = R6::R6Class("adios_R6",
     {
       private$config = config
       private$adios_obj = adios_init(config)
-      return(self)
+      
+      invisible(self)
     },
     
     #' @details Open the file.
@@ -58,7 +60,17 @@ adios_R6 = R6::R6Class("adios_R6",
       private$path = path
       private$file = adios_open(private$adios_obj, path, engine, io_name)
       private$var = adios_available_variables(private$file)
-      return(self)
+      
+      invisible(self)
+    },
+    
+    #' @details List available variables in a file.
+    available_variables = function()
+    {
+      if (is.null(private$var))
+        stop("must open a file first")
+      
+      private$var
     },
     
     #' @details Close the file.
@@ -67,16 +79,23 @@ adios_R6 = R6::R6Class("adios_R6",
       adios_close(private$file)
       private$file = NULL
       private$var = NULL
-      return(self)
+      
+      invisible(self)
     },
     
     #' @details Print some basic file information.
     print = function()
     {
-      # cat("## An ADIOS2 file: ")
-      # cat(attr(private$path, "filename"))
-      # cat("\n")
-      return(self)
+      if (is.null(private$file))
+        cat("## ADIOS2 file: NULL\n")
+      else
+      {
+        cat("## An ADIOS2 file: ")
+        cat(private$path)
+        cat("\n")
+      }
+      
+      invisible(self)
     },
     
     #' @details Advance the step.
@@ -85,7 +104,8 @@ adios_R6 = R6::R6Class("adios_R6",
     advance = function(timeout=10)
     {
       adios_advance(private$file, timeout=timeout)
-      return(self)
+      
+      invisible(self)
     },
     
     #' @details Reads the array of a variable into R memory.

@@ -29,29 +29,15 @@ remotes::install_github("RBigData/hola", configure.args="--with-adios2-home=adio
 ## Example
 
 ```r
-library(hola)
+suppressMessages(library(hola))
 
-dataset = system.file("datasets/example.h5", package="hola")
+ad = adios()
 
-af = adios_open(dataset)
-af
-## ## An ADIOS2 file: /home/mschmid3/R/lib/hola/datasets/example.h5
+dataset = system.file("datasets/example_int.h5", package="hola")
+ad$open(dataset)
 
-adios_available_variables(af)
+ad$available_variables()
 ## [1] "/data"
 
-adios_read(af, "/data")
-##       [,1] [,2] [,3]
-##  [1,]    1   11   21
-##  [2,]    2   12   22
-##  [3,]    3   13   23
-##  [4,]    4   14   24
-##  [5,]    5   15   25
-##  [6,]    6   16   26
-##  [7,]    7   17   27
-##  [8,]    8   18   28
-##  [9,]    9   19   29
-## [10,]   10   20   30
-
-adios_close(af)
+ad$close()
 ```
