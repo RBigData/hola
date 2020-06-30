@@ -58,48 +58,49 @@ extern "C" SEXP hola_read(SEXP vn, SEXP io_Robj, SEXP r_Robj)
   std::string varname = CHARPT(vn, 0);
   
   
-  float timeout = 10.0f;
-  adios2::StepStatus read_status;
-  while (true)
-  {
-    read_status = r->BeginStep(adios2::StepMode::Read, timeout);
-    if (read_status == adios2::StepStatus::NotReady)
+  try {
+    float timeout = 10.0f;
+    adios2::StepStatus read_status;
+    while (true)
     {
-      Rprintf("Stream not ready yet. Waiting...\n");
-      continue;
+      read_status = r->BeginStep(adios2::StepMode::Read, timeout);
+      if (read_status == adios2::StepStatus::NotReady)
+      {
+        Rprintf("Stream not ready yet. Waiting...\n");
+        continue;
+      }
+      else
+        break;
+    }
+    
+    if (read_status != adios2::StepStatus::OK)
+      return R_NilValue;
+    
+    size_t step = r->CurrentStep();
+    
+    auto type = io->VariableType(varname);
+    if (type == "")
+      error("variable \"%s\" not found in step %d\n", varname.c_str(), step);
+    else if (type == "int32_t")
+      PROTECT(ret = read_slice<int>(varname, step, io, r, INTSXP));
+    else if (type == "double")
+      PROTECT(ret = read_slice<double>(varname, step, io, r, REALSXP));
+    else if (type == "float")
+    {
+      SEXP ret_data;
+      PROTECT(ret_data = read_slice<float>(varname, step, io, r, INTSXP));
+      
+      SEXP ret_s4_class;
+      PROTECT(ret_s4_class = MAKE_CLASS("float32"));
+      PROTECT(ret = NEW_OBJECT(ret_s4_class));
+      SET_SLOT(ret, install("Data"), ret_data);
+      UNPROTECT(2);
     }
     else
-      break;
-  }
-  
-  if (read_status != adios2::StepStatus::OK)
-    return R_NilValue;
-  
-  size_t step = r->CurrentStep();
-  
-  auto type = io->VariableType(varname);
-  if (type == "")
-    error("variable \"%s\" not found in step %d\n", varname.c_str(), step);
-  else if (type == "int32_t")
-    PROTECT(ret = read_slice<int>(varname, step, io, r, INTSXP));
-  else if (type == "double")
-    PROTECT(ret = read_slice<double>(varname, step, io, r, REALSXP));
-  else if (type == "float")
-  {
-    SEXP ret_data;
-    PROTECT(ret_data = read_slice<float>(varname, step, io, r, INTSXP));
+      error("variable has unsupported type \"%s\"\n", type.c_str());
     
-    SEXP ret_s4_class;
-    PROTECT(ret_s4_class = MAKE_CLASS("float32"));
-    PROTECT(ret = NEW_OBJECT(ret_s4_class));
-    SET_SLOT(ret, install("Data"), ret_data);
-    UNPROTECT(2);
-  }
-  else
-    error("variable has unsupported type \"%s\"\n", type.c_str());
-  
-  r->EndStep();
-  
+    r->EndStep();
+  } catch(const std::exception& e) { error(e.what()); }
   
   UNPROTECT(1);
   return ret;
