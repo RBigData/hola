@@ -15,4 +15,4 @@ Authors@R: c(person("Drew", "Schmidt", role=c("aut", "cre"), email="wrathematics
 Maintainer: Drew Schmidt <wrathematics@gmail.com>
 URL: https://github.com/RBigData/ngram
 BugReports: https://github.com/RBigData/hola/issues
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1

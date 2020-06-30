@@ -3,28 +3,27 @@
 #include <adios2.h>
 
 
-extern "C" SEXP hola_open(SEXP f, SEXP engine_type)
+extern "C" SEXP hola_open(SEXP ad_Robj, SEXP f, SEXP engine_type, SEXP io_name)
 {
   SEXP ret;
-  SEXP ad_Robj, io_Robj, r_Robj;
+  SEXP io_Robj, r_Robj;
   
-  adios2::ADIOS *ad = new adios2::ADIOS;
+  adios2::ADIOS *ad = (adios2::ADIOS *) getRptr(ad_Robj);
+  
   adios2::IO *io = new adios2::IO;
-  *io = ad->DeclareIO("R_ADIOS_READER");
+  *io = ad->DeclareIO(CHARPT(io_name, 0));
   io->SetEngine(CHARPT(engine_type, 0));
   
   adios2::Engine *r = new adios2::Engine;
   *r = io->Open(CHARPT(f, 0), adios2::Mode::Read);
   
-  newRptr(ad, ad_Robj, adios_object_finalizer<adios2::ADIOS>);
   newRptr(io, io_Robj, adios_object_finalizer<adios2::IO>);
   newRptr(r, r_Robj, adios_object_finalizer<adios2::Engine>);
   
-  PROTECT(ret = allocVector(VECSXP, 3));
-  SET_VECTOR_ELT(ret, 0, ad_Robj);
-  SET_VECTOR_ELT(ret, 1, io_Robj);
-  SET_VECTOR_ELT(ret, 2, r_Robj);
+  PROTECT(ret = allocVector(VECSXP, 2));
+  SET_VECTOR_ELT(ret, 0, io_Robj);
+  SET_VECTOR_ELT(ret, 1, r_Robj);
   
-  UNPROTECT(4);
+  UNPROTECT(3);
   return ret;
 }
