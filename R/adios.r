@@ -76,7 +76,9 @@ adios_R6 = R6::R6Class("adios_R6",
     #' @details Close the file.
     close = function()
     {
-      adios_close(private$file)
+      if (!is.null(private$file))
+        adios_close(private$file)
+      
       private$file = NULL
       private$var = NULL
       
@@ -120,8 +122,7 @@ adios_R6 = R6::R6Class("adios_R6",
   private = list(
     finalize = function()
     {
-      if (!is.null(private$file))
-        self$close()
+      self$close()
     },
     
     config = NULL,
