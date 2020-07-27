@@ -1,7 +1,5 @@
 #include "hola.hpp"
 
-#include <adios2.h>
-
 
 extern "C" SEXP hola_open(SEXP ad_Robj, SEXP f, SEXP engine_type, SEXP io_name)
 {

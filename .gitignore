@@ -2,3 +2,4 @@
 *.so
 
 src/Makevars
+R/features.r

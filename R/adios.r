@@ -24,10 +24,12 @@ adios_R6 = R6::R6Class("adios_R6",
   public = list(
     #' @details Open the file.
     #' @param config An optional ADIOS2 config file.
-    initialize = function(config=NULL)
+    #' @param comm A communicator number from pbdMPI if the package is installed
+    #' with MPI support. Otherwise the param is ignored.
+    initialize = function(config=NULL, comm=NULL)
     {
       private$config = config
-      private$adios_obj = adios_init(config)
+      private$adios_obj = adios_init(config, comm)
       
       invisible(self)
     },

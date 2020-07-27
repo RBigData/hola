@@ -1,7 +1,5 @@
 #include "hola.hpp"
 
-#include <adios2.h>
-
 
 template <typename T>
 static inline void check_variable(adios2::Variable<T> &variable,

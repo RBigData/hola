@@ -1,0 +1,1 @@
+has_mpi = function() @USE_MPI@

@@ -1,7 +1,5 @@
 #include "hola.hpp"
 
-#include <adios2.h>
-
 
 extern "C" SEXP hola_close(SEXP r_Robj)
 {

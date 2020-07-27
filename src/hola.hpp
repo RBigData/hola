@@ -3,6 +3,8 @@
 #pragma once
 
 
+#include <adios2.h>
+
 #include <Rinternals.h>
 #include <Rdefines.h>
 

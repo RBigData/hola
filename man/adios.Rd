@@ -43,13 +43,16 @@ myvar_step_2 = ad$read("my_variable")
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{adios_R6$new(config = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{adios_R6$new(config = NULL, comm = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{config}}{An optional ADIOS2 config file.}
+
+\item{\code{comm}}{A communicator number from pbdMPI if the package is installed
+with MPI support. Otherwise the param is ignored.}
 }
 \if{html}{\out{</div>}}
 }
