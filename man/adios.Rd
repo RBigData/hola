@@ -52,7 +52,8 @@ myvar_step_2 = ad$read("my_variable")
 \item{\code{config}}{An optional ADIOS2 config file.}
 
 \item{\code{comm}}{A communicator number from pbdMPI if the package is installed
-with MPI support. Otherwise the param is ignored.}
+with MPI support; will use \code{MPI_COMM_WORLD} by default. Otherwise
+the param is ignored.}
 }
 \if{html}{\out{</div>}}
 }
