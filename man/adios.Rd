@@ -5,10 +5,18 @@
 \alias{adios_R6}
 \title{adios_file_R6}
 \usage{
-adios(config = NULL)
+adios(path, config, io_name, comm = NULL)
 }
 \arguments{
-\item{config}{An optional ADIOS2 config file.}
+\item{path}{File path.}
+
+\item{config}{An ADIOS2 config file.}
+
+\item{io_name}{The IO configuration ("io name" key) to use.}
+
+\item{comm}{A communicator number from pbdMPI if the package is installed
+with MPI support; will use \code{MPI_COMM_WORLD} by default. Otherwise
+the param is ignored.}
 }
 \description{
 R6 classes and methods for ADIOS2 file operations.
@@ -29,7 +37,6 @@ myvar_step_2 = ad$read("my_variable")
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{adios_R6$new()}}
-\item \href{#method-open}{\code{adios_R6$open()}}
 \item \href{#method-available_variables}{\code{adios_R6$available_variables()}}
 \item \href{#method-close}{\code{adios_R6$close()}}
 \item \href{#method-print}{\code{adios_R6$print()}}
@@ -43,31 +50,7 @@ myvar_step_2 = ad$read("my_variable")
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{adios_R6$new(config = NULL, comm = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{config}}{An optional ADIOS2 config file.}
-
-\item{\code{comm}}{A communicator number from pbdMPI if the package is installed
-with MPI support; will use \code{MPI_COMM_WORLD} by default. Otherwise
-the param is ignored.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Open the file.
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-open"></a>}}
-\if{latex}{\out{\hypertarget{method-open}{}}}
-\subsection{Method \code{open()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{adios_R6$open(path, engine = NULL, io_name = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{adios_R6$new(path, config, io_name, comm = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -75,13 +58,18 @@ Open the file.
 \describe{
 \item{\code{path}}{File path.}
 
+\item{\code{config}}{An ADIOS2 config file.}
+
+\item{\code{io_name}}{The IO configuration ("io name" key) to use.}
+
+\item{\code{comm}}{A communicator number from pbdMPI if the package is installed
+with MPI support; will use \code{MPI_COMM_WORLD} by default. Otherwise
+the param is ignored.}
+
 \item{\code{engine}}{Either left blank/missing, or one of "bpfile", "dataman",
 "hdf5", "insitumpi", or "sst", corresponding to the input. If missing,
 then we try to intuit the engine based on the extension in
 \code{path}.}
-
-\item{\code{io_name}}{The IO configuration ("io name" key) to use if using a
-config file.}
 }
 \if{html}{\out{</div>}}
 }
