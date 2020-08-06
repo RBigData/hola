@@ -9,6 +9,7 @@ extern SEXP hola_close(SEXP);
 extern SEXP hola_init(SEXP, SEXP);
 extern SEXP hola_open(SEXP, SEXP, SEXP, SEXP);
 extern SEXP hola_read(SEXP, SEXP, SEXP);
+extern SEXP hola_read_to_buf(SEXP, SEXP, SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
   {"hola_advance",              (DL_FUNC) &hola_advance,              2},
@@ -17,6 +18,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"hola_init",                 (DL_FUNC) &hola_init,                 2},
   {"hola_open",                 (DL_FUNC) &hola_open,                 4},
   {"hola_read",                 (DL_FUNC) &hola_read,                 3},
+  {"hola_read_to_buf",          (DL_FUNC) &hola_read_to_buf,          4},
   {NULL, NULL, 0}
 };
 

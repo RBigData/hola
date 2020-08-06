@@ -109,6 +109,18 @@ adios_R6 = R6::R6Class("adios_R6",
     read = function(var)
     {
       adios_read(private$file, var)
+    },
+    
+    
+    
+    #' @details Reads the array of a variable into pre-allocated R memory. If
+    #' the buffer is inappropriately sized, terrible things may happen.
+    #' @param var String name of the desired variable.
+    #' @param buf Buffer space.
+    read_to_buf = function(var, buf)
+    {
+      adios_read_to_buf(private$file, var, buf)
+      invisible(self)
     }
   ),
   

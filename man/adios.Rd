@@ -42,6 +42,7 @@ myvar_step_2 = ad$read("my_variable")
 \item \href{#method-print}{\code{adios_R6$print()}}
 \item \href{#method-advance}{\code{adios_R6$advance()}}
 \item \href{#method-read}{\code{adios_R6$read()}}
+\item \href{#method-read_to_buf}{\code{adios_R6$read_to_buf()}}
 \item \href{#method-clone}{\code{adios_R6$clone()}}
 }
 }
@@ -155,6 +156,29 @@ Advance the step.
 }
 \subsection{Details}{
 Reads the array of a variable into R memory.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-read_to_buf"></a>}}
+\if{latex}{\out{\hypertarget{method-read_to_buf}{}}}
+\subsection{Method \code{read_to_buf()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{adios_R6$read_to_buf(var, buf)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{var}}{String name of the desired variable.}
+
+\item{\code{buf}}{Buffer space.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Reads the array of a variable into pre-allocated R memory. Note
+that this is dangerous.
 }
 
 }
