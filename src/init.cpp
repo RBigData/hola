@@ -17,7 +17,10 @@ extern "C" SEXP hola_init(SEXP config, SEXP comm_ptr)
     if (config == R_NilValue)
       ad = new adios2::ADIOS(comm);
     else
-      ad = new adios2::ADIOS(CHARPT(config, 0), comm);
+    {
+      std::string config_string = CHARPT(config, 0);
+      ad = new adios2::ADIOS(config_string, comm);
+    }
   } catch(const std::exception& e) { error(e.what()); }
 #else
   (void)comm_ptr;
@@ -25,7 +28,10 @@ extern "C" SEXP hola_init(SEXP config, SEXP comm_ptr)
     if (config == R_NilValue)
       ad = new adios2::ADIOS;
     else
-      ad = new adios2::ADIOS(CHARPT(config, 0));
+    {
+      std::string config_string = CHARPT(config, 0);
+      ad = new adios2::ADIOS(config_string);
+    }
   } catch(const std::exception& e) { error(e.what()); }
 #endif
   
