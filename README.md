@@ -30,16 +30,36 @@ remotes::install_github("RBigData/hola", configure.args="--with-adios2-home=adio
 
 ## Example
 
+Here is a basic example reading a matrix from a simple hdf5 file that was written via [hdf5r](https://cran.r-project.org/web/packages/hdf5r/index.html) and is included in the package.
+
 ```r
-suppressMessages(library(hola))
-
-ad = adios()
-
 dataset = system.file("datasets/example_int.h5", package="hola")
-ad$open(dataset)
+ad = hola::adios(dataset)
 
 ad$available_variables()
 ## [1] "/data"
 
-ad$close()
+ad$read("/data")
+##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    1    4    7   10   13   16   19   22   25    28
+## [2,]    2    5    8   11   14   17   20   23   26    29
+## [3,]    3    6    9   12   15   18   21   24   27    30
+```
+
+We can also write a file and then read it back:
+
+```r
+x = matrix(1:8, 4)
+str(x)
+
+f = "/tmp/test.h5"
+var = "/mydata"
+
+w = hola::adios(f, mode="write")
+x = w$write(var, x)
+w$close()
+
+r = hola::adios(f)
+y = r$read(var)
+str(y)
 ```
