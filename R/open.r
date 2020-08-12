@@ -14,7 +14,8 @@ guess_engine = function(filename)
 
 
 #' @useDynLib hola hola_open
-adios_open = function(adios_obj, path, engine, io_name)
+adios_open = function(adios_obj, path, engine, io_name, mode)
 {
-  .Call(hola_open, adios_obj, path, engine, io_name)
+  mode = ifelse(mode == "read", "r", "w")
+  .Call(hola_open, adios_obj, path, engine, io_name, mode)
 }

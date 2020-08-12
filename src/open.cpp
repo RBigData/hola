@@ -1,7 +1,8 @@
 #include "hola.hpp"
 
 
-extern "C" SEXP hola_open(SEXP ad_Robj, SEXP path, SEXP engine, SEXP io_name)
+extern "C" SEXP hola_open(SEXP ad_Robj, SEXP path, SEXP engine, SEXP io_name,
+  SEXP mode)
 {
   SEXP ret;
   SEXP io_Robj, r_Robj;
@@ -16,7 +17,10 @@ extern "C" SEXP hola_open(SEXP ad_Robj, SEXP path, SEXP engine, SEXP io_name)
       io->SetEngine(CHARPT(engine, 0));
     
     adios2::Engine *r = new adios2::Engine;
-    *r = io->Open(CHARPT(path, 0), adios2::Mode::Read);
+    if (CHARPT(mode, 0)[0] == 'r')
+      *r = io->Open(CHARPT(path, 0), adios2::Mode::Read);
+    else
+      *r = io->Open(CHARPT(path, 0), adios2::Mode::Write);
     
     newRptr(io, io_Robj, adios_object_finalizer<adios2::IO>);
     newRptr(r, r_Robj, adios_object_finalizer<adios2::Engine>);

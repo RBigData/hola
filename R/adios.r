@@ -24,29 +24,32 @@ adios_R6 = R6::R6Class("adios_R6",
   public = list(
     #' @details Open the file.
     #' @param path File path.
-    #' @param engine Either left blank/missing, or one of "bpfile", "dataman",
-    #' "hdf5", "insitumpi", or "sst", corresponding to the input. If missing,
-    #' then we try to intuit the engine based on the extension in
-    #' \code{path}.
     #' @param config An ADIOS2 config file.
     #' @param io_name The IO configuration ("io name" key) to use.
     #' @param comm A communicator number from pbdMPI if the package is installed
     #' with MPI support; will use \code{MPI_COMM_WORLD} by default. Otherwise
     #' the param is ignored.
-    initialize = function(path, config, io_name, comm=NULL)
+    #' @param mode \code{"read"} or \code{"write"}.
+    initialize = function(path, config, io_name, comm=NULL, mode="read")
     {
+      mode = match.arg(tolower(mode), c("read", "write"))
+      
       if ((missing(config) && !missing(io_name)) || !missing(config) && missing(io_name))
         stop("must supply both 'config' and 'io_name' if using either")
       
       if (missing(config))
       {
         config = NULL
-        io_name="R_ADIOS_READER"
+        if (mode == "read")
+          io_name = "R_ADIOS_READER"
+        else
+          io_name = "R_ADIOS_WRITER"
       }
+      
       
       engine = NULL
       private$init(config=config, comm=comm)
-      private$open(path=path, engine=engine, io_name=io_name)
+      private$open(path=path, engine=engine, io_name=io_name, mode=mode)
       
       invisible(self)
     },
@@ -121,6 +124,16 @@ adios_R6 = R6::R6Class("adios_R6",
     {
       adios_read_to_buf(private$file, var, buf)
       invisible(self)
+    },
+    
+    
+    
+    #' @details Write the array of an R variable to a file.
+    #' @param var String name of the desired variable.
+    #' @param x R vector/matrix object.
+    write = function(var, x)
+    {
+      adios_write(private$file, var, x)
     }
   ),
   
@@ -140,16 +153,19 @@ adios_R6 = R6::R6Class("adios_R6",
       private$adios_obj = adios_init(config, comm)
     },
     
-    open = function(path, engine, io_name)
+    open = function(path, engine, io_name, mode)
     {
+      private$mode = mode
+      
       private$path = path
-      private$file = adios_open(private$adios_obj, path, engine, io_name)
+      private$file = adios_open(private$adios_obj, path, engine, io_name, mode)
       private$var = adios_available_variables(private$file)
     },
     
     comm = NULL,
     config = NULL,
     path = NULL,
+    mode = NULL,
     adios_obj = NULL,
     file = NULL,
     var = NULL
@@ -164,9 +180,10 @@ adios_R6 = R6::R6Class("adios_R6",
 #' @param comm A communicator number from pbdMPI if the package is installed
 #' with MPI support; will use \code{MPI_COMM_WORLD} by default. Otherwise
 #' the param is ignored.
+#' @param mode \code{"read"} or \code{"write"}.
 #' @rdname adios
 #' @export
-adios = function(path, config, io_name, comm=NULL)
+adios = function(path, config, io_name, comm=NULL, mode="read")
 {
-  adios_R6$new(path, config, io_name, comm)
+  adios_R6$new(path, config, io_name, comm, mode)
 }

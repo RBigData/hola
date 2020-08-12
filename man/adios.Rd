@@ -5,7 +5,7 @@
 \alias{adios_R6}
 \title{adios_file_R6}
 \usage{
-adios(path, config, io_name, comm = NULL)
+adios(path, config, io_name, comm = NULL, mode = "read")
 }
 \arguments{
 \item{path}{File path.}
@@ -17,6 +17,8 @@ adios(path, config, io_name, comm = NULL)
 \item{comm}{A communicator number from pbdMPI if the package is installed
 with MPI support; will use \code{MPI_COMM_WORLD} by default. Otherwise
 the param is ignored.}
+
+\item{mode}{\code{"read"} or \code{"write"}.}
 }
 \description{
 R6 classes and methods for ADIOS2 file operations.
@@ -43,6 +45,7 @@ myvar_step_2 = ad$read("my_variable")
 \item \href{#method-advance}{\code{adios_R6$advance()}}
 \item \href{#method-read}{\code{adios_R6$read()}}
 \item \href{#method-read_to_buf}{\code{adios_R6$read_to_buf()}}
+\item \href{#method-write}{\code{adios_R6$write()}}
 \item \href{#method-clone}{\code{adios_R6$clone()}}
 }
 }
@@ -51,7 +54,7 @@ myvar_step_2 = ad$read("my_variable")
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{adios_R6$new(path, config, io_name, comm = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{adios_R6$new(path, config, io_name, comm = NULL, mode = "read")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -67,10 +70,7 @@ myvar_step_2 = ad$read("my_variable")
 with MPI support; will use \code{MPI_COMM_WORLD} by default. Otherwise
 the param is ignored.}
 
-\item{\code{engine}}{Either left blank/missing, or one of "bpfile", "dataman",
-"hdf5", "insitumpi", or "sst", corresponding to the input. If missing,
-then we try to intuit the engine based on the extension in
-\code{path}.}
+\item{\code{mode}}{\code{"read"} or \code{"write"}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -177,8 +177,30 @@ Reads the array of a variable into R memory.
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Reads the array of a variable into pre-allocated R memory. Note
-that this is dangerous.
+Reads the array of a variable into pre-allocated R memory. If
+the buffer is inappropriately sized, terrible things may happen.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-write"></a>}}
+\if{latex}{\out{\hypertarget{method-write}{}}}
+\subsection{Method \code{write()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{adios_R6$write(var, x)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{var}}{String name of the desired variable.}
+
+\item{\code{x}}{R vector/matrix object.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Write the array of an R variable to a file.
 }
 
 }
