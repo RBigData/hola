@@ -51,6 +51,7 @@ We can also write a file and then read it back:
 ```r
 x = matrix(1:8, 4)
 str(x)
+## int [1:4, 1:2] 1 2 3 4 5 6 7 8
 
 f = "/tmp/test.h5"
 var = "/mydata"
@@ -62,4 +63,5 @@ w$close()
 r = hola::adios(f)
 y = r$read(var)
 str(y)
+## int [1:4, 1:2] 1 2 3 4 5 6 7 8
 ```
