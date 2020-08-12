@@ -27,10 +27,9 @@ R6 classes and methods for ADIOS2 file operations.
 \dontrun{
 suppressMessages(library(hola))
 
-ad = adios()
-ad$open("/path/to/my/dataset")
+ad = adios("/path/to/my/dataset")
 myvar_step_0 = ad$read("my_variable")
-f$advance()
+ad$advance()
 myvar_step_2 = ad$read("my_variable")
 }
 
@@ -200,7 +199,7 @@ the buffer is inappropriately sized, terrible things may happen.
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Write the array of an R variable to a file.
+Write the R vector/matrix to a file.
 }
 
 }

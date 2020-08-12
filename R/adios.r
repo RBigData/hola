@@ -6,10 +6,9 @@
 #' \dontrun{
 #' suppressMessages(library(hola))
 #' 
-#' ad = adios()
-#' ad$open("/path/to/my/dataset")
+#' ad = adios("/path/to/my/dataset")
 #' myvar_step_0 = ad$read("my_variable")
-#' f$advance()
+#' ad$advance()
 #' myvar_step_2 = ad$read("my_variable")
 #' }
 #' 
@@ -128,7 +127,7 @@ adios_R6 = R6::R6Class("adios_R6",
     
     
     
-    #' @details Write the array of an R variable to a file.
+    #' @details Write the R vector/matrix to a file.
     #' @param var String name of the desired variable.
     #' @param x R vector/matrix object.
     write = function(var, x)
