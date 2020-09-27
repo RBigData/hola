@@ -28,7 +28,9 @@ template <typename T>
 void write(const std::string &varname, const adios2::Dims &dims, const T *x,
   adios2::IO *io, adios2::Engine *r)
 {
-  adios2::Variable<T> var = io->DefineVariable<T>(varname, dims);
+  adios2::Variable<T> var = io->InquireVariable<T>(varname);
+  if (!var)
+    var = io->DefineVariable<T>(varname, dims);
   
   adios2::Dims start(dims.size());
   for (unsigned int i=0; i<dims.size(); i++)
@@ -37,6 +39,7 @@ void write(const std::string &varname, const adios2::Dims &dims, const T *x,
   
   r->BeginStep();
   
+  var.SetShape(dims);
   var.SetSelection(selection);
   r->Put(var, x);
   
