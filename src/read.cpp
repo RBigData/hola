@@ -71,6 +71,7 @@ SEXP read_with_alloc(const std::string &varname, const size_t step,
   auto variable = get_var<T>(io, varname, step);
   PROTECT(dims = get_dims(r, step, variable));
   
+  
   R_xlen_t n = 1.0;
   for (int i=0; i<LENGTH(dims); i++)
     n *= (R_xlen_t) REAL(dims)[i];
@@ -108,20 +109,7 @@ extern "C" SEXP hola_read(SEXP vn, SEXP io_Robj, SEXP r_Robj)
   
   
   try {
-    float timeout = 10.0f;
-    adios2::StepStatus read_status;
-    while (true)
-    {
-      read_status = r->BeginStep(adios2::StepMode::Read, timeout);
-      if (read_status == adios2::StepStatus::NotReady)
-      {
-        Rprintf("Stream not ready yet. Waiting...\n");
-        continue;
-      }
-      else
-        break;
-    }
-    
+    auto read_status = begin_step(r);
     if (read_status != adios2::StepStatus::OK)
       return R_NilValue;
     
