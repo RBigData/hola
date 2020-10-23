@@ -110,6 +110,9 @@ adios_R6 = R6::R6Class("adios_R6",
     #' @param var String name of the desired variable.
     read = function(var)
     {
+      if (private$mode != "read")
+        stop("file not opened for reading")
+      
       adios_read(private$file, var)
     },
     
@@ -132,7 +135,11 @@ adios_R6 = R6::R6Class("adios_R6",
     #' @param x R vector/matrix object.
     write = function(var, x)
     {
+      if (private$mode != "write")
+        stop("file not opened for writing")
+      
       adios_write(private$file, var, x)
+      invisible(self)
     }
   ),
   
