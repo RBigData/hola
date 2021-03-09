@@ -37,13 +37,9 @@ void write(const std::string &varname, const adios2::Dims &dims, const T *x,
     start[i] = 0;
   adios2::Box<adios2::Dims> selection(start, dims);
   
-  r->BeginStep();
-  
   var.SetShape(dims);
   var.SetSelection(selection);
   r->Put(var, x);
-  
-  r->EndStep();
 }
 
 

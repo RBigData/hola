@@ -113,8 +113,9 @@ adios_R6 = R6::R6Class("adios_R6",
     #' the case data is being streamed.
     advance = function(timeout=10)
     {
-      adios_advance(private$file, timeout=timeout)
+      adios_advance(private$file, private$step_begun, timeout=timeout)
       
+      private$step_begun = FALSE
       invisible(self)
     },
     
@@ -127,6 +128,8 @@ adios_R6 = R6::R6Class("adios_R6",
       if (private$mode != "read")
         stop("file not opened for reading")
       
+      private$begin_step()
+      
       adios_read(private$file, var)
     },
     
@@ -138,6 +141,11 @@ adios_R6 = R6::R6Class("adios_R6",
     #' @param buf Buffer space.
     read_to_buf = function(var, buf)
     {
+      if (private$mode != "read")
+        stop("file not opened for reading")
+      
+      private$begin_step()
+      
       adios_read_to_buf(private$file, var, buf)
       invisible(self)
     },
@@ -151,6 +159,8 @@ adios_R6 = R6::R6Class("adios_R6",
     {
       if (private$mode != "write")
         stop("file not opened for writing")
+      
+      private$begin_step()
       
       adios_write(private$file, var, x)
       invisible(self)
@@ -175,11 +185,21 @@ adios_R6 = R6::R6Class("adios_R6",
     
     open = function(path, engine, io_name, mode)
     {
+      private$step_begun = FALSE
       private$mode = mode
       
       private$path = path
       private$file = adios_open(private$adios_obj, path, engine, io_name, mode)
       private$var = adios_available_variables(private$file)
+    },
+    
+    begin_step = function(timeout=10)
+    {
+      if (!isTRUE(private$step_begun))
+      {
+        adios_begin_step(private$file, timeout=timeout)
+        private$step_begun = TRUE
+      }
     },
     
     comm = NULL,
@@ -188,7 +208,8 @@ adios_R6 = R6::R6Class("adios_R6",
     mode = NULL,
     adios_obj = NULL,
     file = NULL,
-    var = NULL
+    var = NULL,
+    step_begun = NULL
   )
 )
 

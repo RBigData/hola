@@ -88,10 +88,6 @@ extern "C" SEXP hola_read(SEXP vn, SEXP io_Robj, SEXP r_Robj)
   
   
   try {
-    auto read_status = begin_step(r);
-    if (read_status != adios2::StepStatus::OK)
-      return R_NilValue;
-    
     size_t step = r->CurrentStep();
     
     auto type = io->VariableType(varname);
@@ -115,7 +111,6 @@ extern "C" SEXP hola_read(SEXP vn, SEXP io_Robj, SEXP r_Robj)
     else
       error("variable has unsupported type \"%s\"\n", type.c_str());
     
-    r->EndStep();
   } catch(const std::exception& e) { error(e.what()); }
   
   UNPROTECT(1);
@@ -133,10 +128,6 @@ extern "C" SEXP hola_read_to_buf(SEXP vn, SEXP io_Robj, SEXP r_Robj, SEXP buf)
   
   
   try {
-    auto read_status = begin_step(r);
-    if (read_status != adios2::StepStatus::OK)
-      return R_NilValue;
-    
     size_t step = r->CurrentStep();
     
     auto type = io->VariableType(varname);
@@ -151,7 +142,6 @@ extern "C" SEXP hola_read_to_buf(SEXP vn, SEXP io_Robj, SEXP r_Robj, SEXP buf)
     else
       error("variable has unsupported type \"%s\"\n", type.c_str());
     
-    r->EndStep();
   } catch(const std::exception& e) { error(e.what()); }
   
   return R_NilValue;
