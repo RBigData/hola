@@ -40,6 +40,7 @@ myvar_step_2 = ad$read("my_variable")
 \item \href{#method-new}{\code{adios_R6$new()}}
 \item \href{#method-available_variables}{\code{adios_R6$available_variables()}}
 \item \href{#method-close}{\code{adios_R6$close()}}
+\item \href{#method-fileinfo}{\code{adios_R6$fileinfo()}}
 \item \href{#method-print}{\code{adios_R6$print()}}
 \item \href{#method-advance}{\code{adios_R6$advance()}}
 \item \href{#method-read}{\code{adios_R6$read()}}
@@ -101,6 +102,19 @@ List available variables in a file.
 
 \subsection{Details}{
 Close the file.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-fileinfo"></a>}}
+\if{latex}{\out{\hypertarget{method-fileinfo}{}}}
+\subsection{Method \code{fileinfo()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{adios_R6$fileinfo()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Returns basic file info.
 }
 
 }

@@ -77,6 +77,20 @@ adios_R6 = R6::R6Class("adios_R6",
     
     
     
+    #' @details Returns basic file info.
+    fileinfo = function()
+    {
+      l = list(
+        config = private$config,
+        path = private$path,
+        mode = private$mode
+      )
+      
+      l
+    },
+    
+    
+    
     #' @details Print some basic file information.
     print = function()
     {
