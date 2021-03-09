@@ -1,26 +1,5 @@
 #include "hola.hpp"
-
-
-static inline adios2::StepStatus begin_step(adios2::Engine *r,
-  float timeout=10.0f)
-{
-  adios2::StepStatus read_status;
-  
-  while (true)
-  {
-    read_status = r->BeginStep(adios2::StepMode::Read, timeout);
-    if (read_status == adios2::StepStatus::NotReady)
-    {
-      Rprintf("Stream not ready yet. Waiting...\n");
-      continue;
-    }
-    else
-      break;
-  }
-  
-  return read_status;
-}
-
+#include "step.hpp"
 
 
 template <typename T>
