@@ -3,7 +3,8 @@
 #include <R_ext/Rdynload.h>
 #include <stdlib.h>
 
-extern SEXP hola_advance(SEXP, SEXP);
+extern SEXP hola_advance(SEXP, SEXP, SEXP);
+extern SEXP hola_begin_step(SEXP, SEXP);
 extern SEXP hola_available_variables(SEXP);
 extern SEXP hola_close(SEXP);
 extern SEXP hola_init(SEXP, SEXP);
@@ -13,7 +14,8 @@ extern SEXP hola_read_to_buf(SEXP, SEXP, SEXP, SEXP);
 extern SEXP hola_write(SEXP, SEXP, SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
-  {"hola_advance",              (DL_FUNC) &hola_advance,              2},
+  {"hola_advance",              (DL_FUNC) &hola_advance,              3},
+  {"hola_begin_step",           (DL_FUNC) &hola_begin_step,           2},
   {"hola_available_variables",  (DL_FUNC) &hola_available_variables,  1},
   {"hola_close",                (DL_FUNC) &hola_close,                1},
   {"hola_init",                 (DL_FUNC) &hola_init,                 2},
