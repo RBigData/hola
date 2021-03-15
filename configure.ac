@@ -1,6 +1,7 @@
 AC_PREREQ([2.69])
 AC_INIT()
 AC_CONFIG_SRCDIR()
+AC_CONFIG_MACRO_DIR([tools/])
 
 # Determine R_HOME.
 : ${R_HOME=`R RHOME`}
@@ -78,6 +79,12 @@ else
     AC_MSG_ERROR([could not find adios2-config either in \$PATH or the specified adios2-home])
   fi
 fi
+
+
+ADIOS_VERSION_MINIMUM="2.7.1"
+AC_MSG_NOTICE([checking for suitable ADIOS2 version])
+AX_COMPARE_VERSION([${ADIOS_VERSION}], [ge], [${ADIOS_VERSION_MINIMUM}], [],
+   [AC_MSG_ERROR([Requires ADIOS2 >= $ADIOS_VERSION_MINIMUM (found $ADIOS_VERSION).])])
 
 
 
