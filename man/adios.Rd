@@ -143,12 +143,15 @@ Print some basic file information.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{timeout}}{Timeout in seconds between trying to advance the step in
-the case data is being streamed.}
+the case data is being read in streams (otherwise ignored).}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Advance the step.
+Advance the step when using time steps for reading/writing.
+The function returns \code{FALSE} if the step status is not "OK" (e.g.,
+when reading but there is nothing left to read), and \code{TRUE}
+otherwise.
 }
 
 }

@@ -108,15 +108,17 @@ adios_R6 = R6::R6Class("adios_R6",
     
     
     
-    #' @details Advance the step.
+    #' @details Advance the step when using time steps for reading/writing.
+    #' The function returns \code{FALSE} if the step status is not "OK" (e.g.,
+    #' when reading but there is nothing left to read), and \code{TRUE}
+    #' otherwise.
     #' @param timeout Timeout in seconds between trying to advance the step in
-    #' the case data is being streamed.
+    #' the case data is being read in streams (otherwise ignored).
     advance = function(timeout=10)
     {
-      adios_advance(private$file, private$step_begun, timeout=timeout)
-      
       private$step_begun = FALSE
-      invisible(self)
+      ret = adios_advance(private$file, private$step_begun, timeout=timeout)
+      invisible(ret)
     },
     
     
