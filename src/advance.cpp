@@ -25,16 +25,15 @@ extern "C" SEXP hola_advance(SEXP r_Robj, SEXP step_begun, SEXP timeout_)
   else
     status = adios2::StepStatus::OK;
   
-  try {
-    if (status != adios2::StepStatus::OK)
-      LOGICAL(ret)[0] = 0;
-    else
-    {
-      LOGICAL(ret)[0] = 1;
-      r->CurrentStep();
-      r->EndStep();
-    }
-  } catch(const std::exception& e) { error(e.what()); }
+  
+  if (status != adios2::StepStatus::OK)
+    LOGICAL(ret)[0] = 0;
+  else
+  {
+    LOGICAL(ret)[0] = 1;
+    r->CurrentStep();
+    r->EndStep();
+  }
   
   UNPROTECT(1);
   return ret;
