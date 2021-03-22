@@ -1,10 +1,10 @@
 suppressMessages(library(hola))
 
-truth = matrix(1:30, 3)
+truth = matrix(1:30, 10)
 
 dataset = system.file("datasets/example_int.h5", package="hola")
-af = adios_open(dataset)
-test = adios_read(af, "/data")
-adios_close(af)
+ad = adios(dataset)
+test = ad$read("/data")
+ad$close()
 
 stopifnot(all.equal(test, truth))
