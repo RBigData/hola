@@ -39,7 +39,7 @@ void write(const std::string &varname, const adios2::Dims &dims, const T *x,
   
   var.SetShape(dims);
   var.SetSelection(selection);
-  r->Put(var, x);
+  r->Put(var, x, adios2::Mode::Sync);
 }
 
 

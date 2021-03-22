@@ -34,7 +34,7 @@ SEXP get_dims(adios2::Engine *r, const size_t step,
 template <typename T>
 void read_var(adios2::Engine *r, adios2::Variable<T> &variable, T *data)
 {
-  r->Get<T>(variable, data, adios2::Mode::Deferred);
+  r->Get<T>(variable, data, adios2::Mode::Sync);
   r->PerformGets();
 }
 
