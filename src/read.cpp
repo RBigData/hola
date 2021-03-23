@@ -26,6 +26,12 @@ SEXP get_dims(adios2::Engine *r, const size_t step,
     REAL(dims_robj)[i] = (double)dims[i];
     // REAL(dims_robj)[i] = (double)dims[dims.size() - 1 - i];
   
+  adios2::Dims start(dims.size());
+  for (unsigned int i=0; i<dims.size(); i++)
+    start[i] = 0;
+  
+  variable.SetSelection({start, dims});
+  
   UNPROTECT(1);
   return dims_robj;
 }
