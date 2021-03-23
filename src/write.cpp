@@ -35,10 +35,9 @@ void write(const std::string &varname, const adios2::Dims &dims, const T *x,
   adios2::Dims start(dims.size());
   for (unsigned int i=0; i<dims.size(); i++)
     start[i] = 0;
-  adios2::Box<adios2::Dims> selection(start, dims);
   
   var.SetShape(dims);
-  var.SetSelection(selection);
+  var.SetSelection({start, dims});
   r->Put(var, x, adios2::Mode::Sync);
 }
 
