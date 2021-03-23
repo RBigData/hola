@@ -5,20 +5,19 @@ template <typename T>
 adios2::Variable<T> get_var(adios2::IO *io, const std::string &varname,
   const size_t step)
 {
-  adios2::Variable<T> variable = io->InquireVariable<T>(varname);
-  if (!variable)
+  adios2::Variable<T> var = io->InquireVariable<T>(varname);
+  if (!var)
     error("variable \"%s\" not found in step %d\n", varname.c_str(), step);
   
-  return variable;
+  return var;
 }
 
 template <typename T>
-SEXP get_dims(adios2::Engine *r, const size_t step,
-  adios2::Variable<T> &variable)
+SEXP get_dims(adios2::Engine *r, const size_t step, adios2::Variable<T> &var)
 {
   SEXP dims_robj;
   
-  auto blocks_info = r->BlocksInfo(variable, step);
+  auto blocks_info = r->BlocksInfo(var, step);
   const auto dims = blocks_info[0].Count;
   
   PROTECT(dims_robj = allocVector(REALSXP, dims.size()));
@@ -30,16 +29,16 @@ SEXP get_dims(adios2::Engine *r, const size_t step,
   for (unsigned int i=0; i<dims.size(); i++)
     start[i] = 0;
   
-  variable.SetSelection({start, dims});
+  var.SetSelection({start, dims});
   
   UNPROTECT(1);
   return dims_robj;
 }
 
 template <typename T>
-void read_var(adios2::Engine *r, adios2::Variable<T> &variable, T *data)
+void read_var(adios2::Engine *r, adios2::Variable<T> &var, T *data)
 {
-  r->Get<T>(variable, data, adios2::Mode::Sync);
+  r->Get<T>(var, data, adios2::Mode::Sync);
   // r->PerformGets();
 }
 
@@ -52,8 +51,8 @@ SEXP read_with_alloc(const std::string &varname, const size_t step,
   SEXP ret;
   SEXP dims;
   
-  auto variable = get_var<T>(io, varname, step);
-  PROTECT(dims = get_dims(r, step, variable));
+  auto var = get_var<T>(io, varname, step);
+  PROTECT(dims = get_dims(r, step, var));
   
   
   R_xlen_t n = 1.0;
@@ -65,7 +64,7 @@ SEXP read_with_alloc(const std::string &varname, const size_t step,
   const char *dim_attr = CHAR(mkChar("dim"));
   setAttrib(ret, install(dim_attr), dims);
   
-  read_var(r, variable, (T*)DATAPTR(ret));
+  read_var(r, var, (T*)DATAPTR(ret));
   
   UNPROTECT(2);
   return ret;
@@ -77,8 +76,8 @@ template <typename T>
 static inline void read_no_alloc(const std::string &varname,
   const size_t step, adios2::IO *io, adios2::Engine *r, T *data)
 {
-  auto variable = get_var<T>(io, varname, step);
-  read_var(r, variable, data);
+  auto var = get_var<T>(io, varname, step);
+  read_var(r, var, data);
 }
 
 
