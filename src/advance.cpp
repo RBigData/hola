@@ -53,7 +53,6 @@ extern "C" SEXP hola_advance(SEXP r_Robj, SEXP step_begun, SEXP timeout_)
   else
   {
     LOGICAL(ret)[0] = 1;
-    r->CurrentStep();
     r->EndStep();
   }
   
