@@ -123,6 +123,14 @@ adios_R6 = R6::R6Class("adios_R6",
     
     
     
+    #' @details Returns the current time step.
+    step = function()
+    {
+      adios_step(private$file)
+    },
+    
+    
+    
     #' @details Reads the array of a variable into R memory.
     #' @param var String name of the desired variable.
     read = function(var)

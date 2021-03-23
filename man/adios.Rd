@@ -43,6 +43,7 @@ myvar_step_2 = ad$read("my_variable")
 \item \href{#method-fileinfo}{\code{adios_R6$fileinfo()}}
 \item \href{#method-print}{\code{adios_R6$print()}}
 \item \href{#method-advance}{\code{adios_R6$advance()}}
+\item \href{#method-step}{\code{adios_R6$step()}}
 \item \href{#method-read}{\code{adios_R6$read()}}
 \item \href{#method-read_to_buf}{\code{adios_R6$read_to_buf()}}
 \item \href{#method-write}{\code{adios_R6$write()}}
@@ -152,6 +153,19 @@ Advance the step when using time steps for reading/writing.
 The function returns \code{FALSE} if the step status is not "OK" (e.g.,
 when reading but there is nothing left to read), and \code{TRUE}
 otherwise.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-step"></a>}}
+\if{latex}{\out{\hypertarget{method-step}{}}}
+\subsection{Method \code{step()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{adios_R6$step()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Returns the current time step.
 }
 
 }
