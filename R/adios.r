@@ -58,7 +58,7 @@ adios_R6 = R6::R6Class("adios_R6",
     #' @details List available variables in a file.
     available_variables = function()
     {
-      private$var
+      adios_available_variables(private$file)
     },
     
     
@@ -70,7 +70,6 @@ adios_R6 = R6::R6Class("adios_R6",
         adios_close(private$file)
       
       private$file = NULL
-      private$var = NULL
       
       invisible(self)
     },
@@ -200,7 +199,6 @@ adios_R6 = R6::R6Class("adios_R6",
       
       private$path = path
       private$file = adios_open(private$adios_obj, path, engine, io_name, mode)
-      private$var = adios_available_variables(private$file)
     },
     
     begin_step = function(timeout=10)
@@ -218,7 +216,6 @@ adios_R6 = R6::R6Class("adios_R6",
     mode = NULL,
     adios_obj = NULL,
     file = NULL,
-    var = NULL,
     step_begun = NULL
   )
 )
