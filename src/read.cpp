@@ -90,7 +90,6 @@ extern "C" SEXP hola_read(SEXP vn, SEXP io_Robj, SEXP r_Robj)
   adios2::Engine *r = (adios2::Engine *) getRptr(r_Robj);
   std::string varname = CHARPT(vn, 0);
   
-  
   try {
     size_t step = r->CurrentStep();
     
