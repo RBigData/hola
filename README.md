@@ -40,10 +40,17 @@ ad$available_variables()
 ## [1] "/data"
 
 ad$read("/data")
-##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-## [1,]    1    4    7   10   13   16   19   22   25    28
-## [2,]    2    5    8   11   14   17   20   23   26    29
-## [3,]    3    6    9   12   15   18   21   24   27    30
+##       [,1] [,2] [,3]
+##  [1,]    1   11   21
+##  [2,]    2   12   22
+##  [3,]    3   13   23
+##  [4,]    4   14   24
+##  [5,]    5   15   25
+##  [6,]    6   16   26
+##  [7,]    7   17   27
+##  [8,]    8   18   28
+##  [9,]    9   19   29
+## [10,]   10   20   30
 ```
 
 We can also write a file and then read it back:
@@ -56,12 +63,17 @@ str(x)
 f = "/tmp/test.h5"
 var = "/mydata"
 
+# write 'x' to variable 'var' in file 'f'
 w = hola::adios(f, mode="write")
-x = w$write(var, x)
+w$write(var, x)
 w$close()
 
+# read 'var' in file 'f' to object 'y'
 r = hola::adios(f)
 y = r$read(var)
 str(y)
 ## int [1:4, 1:2] 1 2 3 4 5 6 7 8
+
+all.equal(x, y)
+## [1] TRUE
 ```
