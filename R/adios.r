@@ -115,8 +115,10 @@ adios_R6 = R6::R6Class("adios_R6",
     #' the case data is being read in streams (otherwise ignored).
     advance = function(timeout=10)
     {
-      private$step_begun = FALSE
       ret = adios_advance(private$file, private$step_begun, timeout=timeout)
+      
+      private$step_begun = FALSE
+      
       invisible(ret)
     },
     
@@ -210,10 +212,13 @@ adios_R6 = R6::R6Class("adios_R6",
       }
     },
     
+    # args
     comm = NULL,
     config = NULL,
     path = NULL,
     mode = NULL,
+    
+    # internals
     adios_obj = NULL,
     file = NULL,
     step_begun = NULL
