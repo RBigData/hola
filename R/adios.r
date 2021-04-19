@@ -108,9 +108,6 @@ adios_R6 = R6::R6Class("adios_R6",
     
     
     #' @details Advance the step when using time steps for reading/writing.
-    #' The function returns \code{FALSE} if the step status is not "OK" (e.g.,
-    #' when reading but there is nothing left to read), and \code{TRUE}
-    #' otherwise.
     #' @param timeout Timeout in seconds between trying to advance the step in
     #' the case data is being read in streams (otherwise ignored).
     advance = function(timeout=10)
@@ -132,7 +129,8 @@ adios_R6 = R6::R6Class("adios_R6",
     
     
     
-    #' @details Reads the array of a variable into R memory.
+    #' @details Reads the array of a variable into R memory. Returns \code{NULL}
+    #' when the steps are finished.
     #' @param var String name of the desired variable.
     read = function(var)
     {
@@ -141,13 +139,17 @@ adios_R6 = R6::R6Class("adios_R6",
       
       private$begin_step()
       
-      adios_read(private$file, var)
+      if (isTRUE(private$step_status))
+        adios_read(private$file, var)
+      else
+        NULL
     },
     
     
     
     #' @details Reads the array of a variable into pre-allocated R memory. If
-    #' the buffer is inappropriately sized, terrible things may happen.
+    #' the buffer is inappropriately sized, terrible things may happen. Does
+    #' nothing when the steps are finished.
     #' @param var String name of the desired variable.
     #' @param buf Buffer space.
     read_to_buf = function(var, buf)
@@ -156,8 +158,9 @@ adios_R6 = R6::R6Class("adios_R6",
         stop("file not opened for reading")
       
       private$begin_step()
+      if (isTRUE(private$step_status))
+        adios_read_to_buf(private$file, var, buf)
       
-      adios_read_to_buf(private$file, var, buf)
       invisible(self)
     },
     
@@ -207,7 +210,7 @@ adios_R6 = R6::R6Class("adios_R6",
     {
       if (!isTRUE(private$step_begun))
       {
-        adios_begin_step(private$file, timeout=timeout)
+        private$step_status = adios_begin_step(private$file, timeout=timeout)
         private$step_begun = TRUE
       }
     },
@@ -221,7 +224,8 @@ adios_R6 = R6::R6Class("adios_R6",
     # internals
     adios_obj = NULL,
     file = NULL,
-    step_begun = NULL
+    step_begun = NULL,
+    step_status = NULL
   )
 )
 

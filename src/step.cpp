@@ -26,10 +26,16 @@ static inline adios2::StepStatus begin_step(adios2::Engine *r, float timeout=10.
 
 extern "C" SEXP hola_begin_step(SEXP r_Robj, SEXP timeout_)
 {
-  adios2::Engine *r = (adios2::Engine *) getRptr(r_Robj);
-  begin_step(r, (float) REAL(timeout_)[0]);
+  SEXP ret;
+  PROTECT(ret = allocVector(LGLSXP, 1));
   
-  return R_NilValue;
+  adios2::Engine *r = (adios2::Engine *) getRptr(r_Robj);
+  
+  adios2::StepStatus status = begin_step(r, (float) REAL(timeout_)[0]);
+  LOGICAL(ret)[0] = (status == adios2::StepStatus::OK);
+  
+  UNPROTECT(1);
+  return ret;
 }
 
 
