@@ -150,9 +150,6 @@ the case data is being read in streams (otherwise ignored).}
 }
 \subsection{Details}{
 Advance the step when using time steps for reading/writing.
-The function returns \code{FALSE} if the step status is not "OK" (e.g.,
-when reading but there is nothing left to read), and \code{TRUE}
-otherwise.
 }
 
 }
@@ -185,7 +182,8 @@ Returns the current time step.
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Reads the array of a variable into R memory.
+Reads the array of a variable into R memory. Returns \code{NULL}
+when the steps are finished.
 }
 
 }
@@ -208,7 +206,8 @@ Reads the array of a variable into R memory.
 }
 \subsection{Details}{
 Reads the array of a variable into pre-allocated R memory. If
-the buffer is inappropriately sized, terrible things may happen.
+the buffer is inappropriately sized, terrible things may happen. Does
+nothing when the steps are finished.
 }
 
 }
