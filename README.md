@@ -14,6 +14,12 @@ Currently we have implemented a single process (no MPI) reader and writer.
 
 ## Installation
 
+You can install the stable version from [the HPCRAN](https://hpcran.org) using the usual `install.packages()`:
+
+```r
+install.packages("hola", repos=c("https://hpcran.org", "https://cran.rstudio.com"))
+
+
 The development version is maintained on GitHub:
 
 ```r

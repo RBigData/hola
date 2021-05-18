@@ -26,3 +26,4 @@ Maintainer: Drew Schmidt <wrathematics@gmail.com>
 URL: https://github.com/RBigData/hola
 BugReports: https://github.com/RBigData/hola/issues
 RoxygenNote: 7.1.1
+HPCRAN: io, mpi
