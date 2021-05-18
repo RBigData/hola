@@ -18,7 +18,7 @@ You can install the stable version from [the HPCRAN](https://hpcran.org) using t
 
 ```r
 install.packages("hola", repos=c("https://hpcran.org", "https://cran.rstudio.com"))
-
+```
 
 The development version is maintained on GitHub:
 
