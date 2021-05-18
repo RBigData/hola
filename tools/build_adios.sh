@@ -1,6 +1,10 @@
 #!/bin/sh
 
-ADIOS2_SRC=${HOME}/sw/libs/ADIOS2
+VERSION="2.7.1"
+VERION="master"
+
+
+ADIOS2_SRC=${HOME}/sw/libs/ADIOS2-${VERSION}
 
 cd ${ADIOS2_SRC}
 
@@ -23,6 +27,6 @@ cmake \
 -DADIOS2_BUILD_TESTING=OFF \
 -DADIOS2_USE_DataMan=OFF \
 -DADIOS2_USE_HDF5=ON \
-..
-
-make && make install
+.. && \
+  make -j 3 && \
+  make install
