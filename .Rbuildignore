@@ -1,5 +1,7 @@
+TODO
 CONFIGUREARGS
 
 debug.r
-
 inst/datasets/bp
+
+tests/config.r
