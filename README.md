@@ -1,7 +1,7 @@
 # hola
 
 * **Version:** 0.1-0
-* **License:** [BSL-1.0](http://opensource.org/licenses/BSL-1.0)
+* **License:** [BSL-1.0](https://opensource.org/licenses/BSL-1.0)
 * **Project home**: https://github.com/RBigData/hola
 * **Bug reports**: https://github.com/RBigData/hola/issues
 
@@ -36,7 +36,7 @@ remotes::install_github("RBigData/hola", configure.args="--with-adios2-home=adio
 
 ## Example
 
-Here is a basic example reading a matrix from a simple hdf5 file that was written via [hdf5r](https://cran.r-project.org/web/packages/hdf5r/index.html) and is included in the package.
+Here is a basic example reading a matrix from a simple hdf5 file that was written via [hdf5r](https://CRAN.R-project.org/package=hdf5r) and is included in the package.
 
 ```r
 dataset = system.file("datasets/example_int.h5", package="hola")
