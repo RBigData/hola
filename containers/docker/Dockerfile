@@ -41,7 +41,7 @@ RUN cd ADIOS2-${ADIOS_VERSION} && \
 
 RUN Rscript -e "install.packages('remotes')"
 RUN Rscript -e "install.packages('float')"
-RUN Rscript -e "install.packages('r6')"
+RUN Rscript -e "install.packages('R6')"
 RUN Rscript -e "remotes::install_github('RBigData/hola', configure.args='--with-adios2-home=/install/')"
 
 CMD ["/bin/bash"]
